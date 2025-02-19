@@ -1999,6 +1999,15 @@ html {
     margin-bottom: 1rem;
   }
 
+  .nav-links{
+    margin-top:13rem;
+    background: rgba(0, 11, 84, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
   .hero .subtitle {
     font-size: 1.1rem;
     line-height: 1.5;
