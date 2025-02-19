@@ -267,6 +267,40 @@ const initPortfolio = () => {
   });
 };
 
+// Counter animation function
+function animateCounter(element, start, end, duration, prefix = '', suffix = '') {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const currentValue = Math.floor(progress * (end - start) + start);
+    element.textContent = `${prefix}${currentValue}${suffix}`;
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+// Initialize counter animations when elements are in view
+function initCounters() {
+  const counters = document.querySelectorAll('.counter-value');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const element = entry.target;
+        const end = parseFloat(element.getAttribute('data-value'));
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+        animateCounter(element, 0, end, 2000, prefix, suffix);
+        observer.unobserve(element);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => observer.observe(counter));
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
@@ -276,4 +310,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initTestimonials();
   initPortfolio();
+  initCounters();
 });
