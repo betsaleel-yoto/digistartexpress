@@ -5,6 +5,10 @@
   --accent-blue: #2536a6;
   --pure-white: #ffffff;
   --font-primary: 'Poppins', sans-serif;
+  --color-light: #f7f7f7;
+  --color-primary: #3498db;
+  --color-secondary: #2ecc71;
+  --color-primary-rgb: 52, 152, 219;
 }
 
 * {
@@ -1495,13 +1499,13 @@ nav {
   .whatsapp-fixed {
     bottom: 2rem;
     right: 2rem;
-    width: 54px;
-    height: 54px;
+    width: 50px;
+    height: 50px;
   }
 
   .whatsapp-fixed svg {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
 
   /* Masquer le bouton WhatsApp dans la navigation sur mobile */
@@ -1514,13 +1518,17 @@ nav {
   .whatsapp-fixed {
     bottom: 1.5rem;
     right: 1.5rem;
-    width: 48px;
-    height: 48px;
+    width: 45px;
+    height: 45px;
   }
-
+  
   .whatsapp-fixed svg {
     width: 24px;
     height: 24px;
+  }
+  
+  .nav-links a {
+    font-size: 1.3rem;
   }
 }
 
@@ -2190,5 +2198,164 @@ html {
   .member-photo {
     width: 120px;
     height: 120px;
+  }
+}
+
+.recipe-section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(150deg, var(--primary-dark) 0%, #020c3a 100%);
+}
+
+.recipe-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.recipe-section h2 span {
+  background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.progress-container {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+
+.progress-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-steps {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.progress-steps::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(88, 255, 190, 0.1);
+}
+
+.progress-steps::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  width: 2px;
+  height: var(--progress-height, 0%);
+  background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+  transition: height 0.6s ease;
+}
+
+.progress-step {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding: 1.5rem 0;
+  opacity: 0.4;
+  transform: translateX(-10px);
+  transition: all 0.5s ease;
+}
+
+.progress-step.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.step-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(88, 255, 190, 0.1);
+  border: 2px solid var(--gradient-start);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gradient-start);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-circle {
+  border-color: var(--gradient-start);
+  background: rgba(88, 255, 190, 0.2);
+  transform: scale(1.1);
+}
+
+.progress-step.active .step-dot {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.step-info {
+  flex: 1;
+  padding-top: 0.25rem;
+}
+
+.step-info h3 {
+  font-family: var(--font-primary);
+  color: var(--pure-white);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.step-info p {
+  font-family: var(--font-primary);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .progress-container {
+    padding: 1rem;
+  }
+
+  .progress-card {
+    padding: 1.5rem;
+  }
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    margin-right: 1rem;
+  }
+
+  .step-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .step-info h3 {
+    font-size: 1rem;
+  }
+
+  .step-info p {
+    font-size: 0.75rem;
   }
 }

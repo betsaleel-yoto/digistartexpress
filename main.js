@@ -301,6 +301,43 @@ function initCounters() {
   counters.forEach(counter => observer.observe(counter));
 }
 
+// Fonction pour animer la barre de progression du process
+function animateProcessProgress() {
+  const processSection = document.querySelector('.process-miracle');
+  const progressBar = document.querySelector('.progress-bar');
+  const steps = document.querySelectorAll('.step-vertical');
+
+  if (!processSection || !progressBar) return;
+
+  function updateProgress() {
+    const sectionTop = processSection.offsetTop;
+    const sectionHeight = processSection.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    // Calculer la progression
+    const startPoint = sectionTop - windowHeight;
+    const endPoint = sectionTop + sectionHeight - windowHeight;
+    const progress = Math.max(0, Math.min(100, ((scrollY - startPoint) / (endPoint - startPoint)) * 100));
+
+    // Mettre à jour la barre de progression
+    progressBar.style.height = `${progress}%`;
+
+    // Animer les étapes au scroll
+    steps.forEach((step, index) => {
+      const stepTop = step.offsetTop + sectionTop;
+      if (scrollY + windowHeight > stepTop + 100) {
+        step.classList.add('fade-in');
+      }
+    });
+  }
+
+  // Mettre à jour la progression au scroll
+  window.addEventListener('scroll', updateProgress);
+  // Initialiser la progression
+  updateProgress();
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
@@ -311,4 +348,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonials();
   initPortfolio();
   initCounters();
+  animateProcessProgress();
 });
