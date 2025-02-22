@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initParticles();
   initFAQ();
-  initForm();
+  // initForm();
   initScrollAnimations();
   initTestimonials();
   initPortfolio();
