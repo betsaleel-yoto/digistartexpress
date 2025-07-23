@@ -1,0 +1,389 @@
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture de Slides Ultra Professionnelle</title>
+    <!-- Google Fonts: Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnH1zTcNt8y2KCAXmUKQKA1qovYsv+ph7i7oN5xvV6H+eVF8oQe/sPSf9sxut9eK5+8XvW1MA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Import Map for future modules -->
+    <script type="importmap">
+      {
+        "imports": {}
+      }
+    </script>
+    <style>
+      /* Reset & Base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #000b54;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+      /* Header with Glassmorphism */
+      header {
+        position: sticky;
+        top: 0;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        z-index: 10;
+      }
+      header .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      /* Slide Container (16:9 Box) */
+      .slide-container {
+        position: relative;
+        max-width: 60%;
+        margin: 20px auto;
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .slides {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+      /* Navigation Icons */
+      .nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.3);
+        color:rgba(54, 214, 152, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+        z-index: 5;
+        user-select: none;
+      }
+      .nav:hover {
+        background: rgba(54, 214, 152, 0.3);
+        color: #36d698;
+      }
+      .nav.left {
+        left: 10px;
+      }
+      .nav.right {
+        right: 10px;
+      }
+      /* Progress Bar */
+      .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .progress {
+        height: 100%;
+        width: 0%;
+        background: #36d698;
+        transition: width 0.5s ease-out;
+      }
+      /* Introduction Motivante */
+      .intro-text {
+        margin: 20px auto;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        max-width: 80%;
+      }
+
+      .intro-text span{
+        color: #36d698;
+        text-shadow: 0 0 10px #36d698;
+      }
+      /* Bouton sur la Dernière Slide */
+      .last-slide-button {
+        margin: 20px auto;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .last-slide-button button {
+        background: #36d698;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #000b54;
+      }
+      .last-slide-button button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      /* Animation pour l'apparition du bouton */
+      .animate-button {
+        animation: fadeScale 0.5s forwards;
+      }
+      @keyframes fadeScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .slide-container {
+          max-width: 95%;
+        }
+        .intro-text {
+          font-size: 1rem;
+          padding: 0 10px;
+        }
+        .nav {
+          width: 56px;
+          height: 56px;
+        }
+      }
+
+      /* Popup Modal */
+      #congratsModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 100;
+      }
+      #congratsModal .modal-content {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 80%;
+        text-align: center;
+        color: #ffffff;
+      }
+      #congratsModal .modal-content p {
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+      #congratsModal .modal-content button {
+        background: #36d698;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #000b54;
+      }
+      #congratsModal .modal-content button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with Logo -->
+    <header>
+      <img src="./img/Blue_Modern_Software_Company_Logo-removebg-preview.png" alt="logo" width="150px">
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      
+      <!-- Texte d'Introduction Motivant (moved above the slide container) -->
+      <div class="intro-text">
+        Découvre le secret des entreprises qui génèrent plus de <span>20 000 dollars</span> par <span>mois</span>  grâce à la vente de produits. Lis jusqu'à la fin car <span>un bouton</span>  apparaîtra avec <span>une surprise</span>  pour toi lorsque tu arriveras sur la dernière page.
+      </div>
+
+      <!-- Zone de Slides -->
+      <div class="slide-container">
+        <div class="slides">
+          <div class="slide active" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJliT2z2ETF9P-aOzB8r2Mb7yJ_doSWDdh-w&s/1600x900?text=Slide+1');"></div>
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1603486002664-a7319421e133?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8MTYlM0E5fGVufDB8fDB8fHww/1600x900?text=Slide+2');"></div>
+          <div class="slide" style="background-image: url('https://cdn.pixabay.com/photo/2022/05/17/02/11/fractal-7201481_640.jpg?text=Slide+3');"></div>
+          <!-- Additional example image -->
+          <div class="slide" style="background-image: url('https://t4.ftcdn.net/jpg/09/59/16/55/360_F_959165592_c0QljEMGA0MTrCGgaQkT9HNKnH9YqyjG.jpg?text=Slide+4');"></div>
+        </div>
+        <!-- Navigation Arrows with updated icons for previous/next -->
+        <div class="nav left" id="prevSlide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="50" height="50" fill="currentColor">
+            <circle cx="256" cy="256" r="240" fill="currentColor"/>
+            <path d="M278.6 164.9c-6.5-6.5-17-6.5-23.5 0l-102 102c-6.5 6.5-6.5 17 0 23.5l102 102c6.5 6.5 17 6.5 23.5 0s6.5-17 0-23.5L205.3 288H352c9.4 0 17-7.6 17-17s-7.6-17-17-17H205.3l73.3-73.3c6.5-6.5 6.5-17 0-23.5z" fill="#fff"/>
+          </svg>
+          
+        </div>
+        <div class="nav right" id="nextSlide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="50" height="50" fill="currentColor">
+            <circle cx="256" cy="256" r="240" fill="currentColor"/>
+            <path d="M233.4 164.9c6.5-6.5 17-6.5 23.5 0l102 102c6.5 6.5 6.5 17 0 23.5l-102 102c-6.5 6.5-17 6.5-23.5 0s-6.5-17 0-23.5L306.7 288H160c-9.4 0-17-7.6-17-17s7.6-17 17-17h146.7l-73.3-73.3c-6.5-6.5-6.5-17 0-23.5z" fill="#fff"/>
+          </svg>
+          
+        </div>
+        <!-- Barre de Progression -->
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+      </div>
+
+      <!-- Bouton de la Dernière Page -->
+      <div class="last-slide-button" id="formButton">
+        <button>Accéder au formulaire</button>
+      </div>
+    </main>
+
+    <!-- Popup Modal -->
+    <div id="congratsModal">
+      <div class="modal-content">
+        <p>
+          Félicitation, si tu es arrivé jusqu'ici c'est que tu fais partie du top 1% des entreprises qui vont faire plus de 20000 dollars de chiffre d'affaire dans les prochains moi. Maintenant un bouton est apparut en dessous du slide regarde en bas et clique sur le bouton
+        </p>
+        <button id="dismissModal">j'ai compris</button>
+      </div>
+    </div>
+
+    <!-- JavaScript pour la Navigation et les Transitions -->
+    <script>
+      // Sélection des éléments
+      const slides = document.querySelectorAll(".slide");
+      const progress = document.querySelector(".progress");
+      const prev = document.getElementById("prevSlide");
+      const next = document.getElementById("nextSlide");
+      const formButton = document.getElementById("formButton");
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+      let congratsTimer = null;
+      let modalShown = false;
+
+      // Fonction pour mettre à jour l'affichage des slides et la progression
+      function updateSlides(newIndex) {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = newIndex;
+        slides[currentSlide].classList.add("active");
+        updateProgress();
+
+        if (currentSlide === totalSlides - 1) {
+          formButton.style.display = "flex";
+          formButton.classList.add("animate-button");
+          if (!modalShown && congratsTimer === null) {
+            congratsTimer = setTimeout(() => {
+              document.getElementById("congratsModal").style.display = "flex";
+              modalShown = true;
+            }, 10000);
+          }
+        } else {
+          formButton.style.display = "none";
+          formButton.classList.remove("animate-button");
+          if (congratsTimer !== null) {
+            clearTimeout(congratsTimer);
+            congratsTimer = null;
+          }
+          document.getElementById("congratsModal").style.display = "none";
+        }
+      }
+
+      // Mise à jour de la barre de progression
+      function updateProgress() {
+        const progressPercent = (currentSlide / (totalSlides - 1)) * 100;
+        progress.style.width = progressPercent + "%";
+      }
+
+      // Évènements clic sur les flèches de navigation
+      next.addEventListener("click", () => {
+        if (currentSlide < totalSlides - 1) {
+          updateSlides(currentSlide + 1);
+        }
+      });
+
+      prev.addEventListener("click", () => {
+        if (currentSlide > 0) {
+          updateSlides(currentSlide - 1);
+        }
+      });
+
+      // Support du swipe sur mobile pour changer de slide
+      let startX = 0;
+      let isSwiping = false;
+      const slideContainer = document.querySelector(".slide-container");
+
+      slideContainer.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+      });
+
+      slideContainer.addEventListener("touchmove", (e) => {
+        if (!isSwiping) return;
+        let diffX = e.touches[0].clientX - startX;
+        if (diffX > 50 && currentSlide > 0) {
+          updateSlides(currentSlide - 1);
+          isSwiping = false;
+        } else if (diffX < -50 && currentSlide < totalSlides - 1) {
+          updateSlides(currentSlide + 1);
+          isSwiping = false;
+        }
+      });
+
+      slideContainer.addEventListener("touchend", () => {
+        isSwiping = false;
+      });
+
+      // Initialisation de la barre de progression
+      updateProgress();
+
+      // Dismiss modal on button click
+      document.getElementById("dismissModal").addEventListener("click", () => {
+        document.getElementById("congratsModal").style.display = "none";
+      });
+    </script>
+  </body>
+</html>
