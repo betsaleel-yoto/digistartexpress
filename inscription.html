@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Entrepreneurial | Transformez Votre Business</title>
+    <!-- Police Poppins depuis Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000b54; /* Bleu principal */
+            --accent: #36d698;   /* Vert d'accentuation */
+            --light: #f8f9ff;
+            --dark: #03072e;
+            --gray: #6c757d;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --shadow: 0 10px 30px rgba(0, 11, 84, 0.15);
+            --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(54, 214, 152, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 11, 84, 0.3) 0%, transparent 20%);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect fill="none" width="100" height="100"/><path d="M0,0 Q50,20 100,0 T100,100 Q50,80 0,100 T0,0 Z" fill="%2336d69810"/></svg>');
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            padding: 15px 30px;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .intro-box, .video-box {
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .intro-box h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .intro-box h1 span {
+            color: var(--accent);
+            position: relative;
+            font-weight: 700;
+        }
+
+        .intro-box h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .intro-box p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, transparent, rgba(54, 214, 152, 0.15), transparent);
+            padding: 15px;
+            border-left: 3px solid var(--accent);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(45deg, var(--primary), #00117a);
+            height: 300px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .video-placeholder::after {
+            content: '\f04b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            font-size: 40px;
+            color: white;
+            z-index: 2;
+            left: calc(50% + 4px);
+            transform: translateX(-50%);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 11, 84, 0.7), rgba(54, 214, 152, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Form Section */
+        .form-container {
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            box-shadow: var(--soft-shadow);
+            margin-bottom: 40px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .form-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+            border-radius: 2px;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--accent);
+            border-color: white;
+            color: var(--primary);
+            box-shadow: 0 0 0 5px rgba(54, 214, 152, 0.2);
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(54, 214, 152, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .payment-method {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .payment-method.active {
+            border-color: var(--accent);
+            background: rgba(54, 214, 152, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .payment-method i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .payment-method h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-method p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .payment-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-next {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: 1px solid var(--accent);
+        }
+
+        .btn-next:hover {
+            background: rgba(54, 214, 152, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(54, 214, 152, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: #2ec389;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(54, 214, 152, 0.4);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            font-weight: 300;
+        }
+
+        /* Animation for form steps */
+        @keyframes slideIn {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        /* Floating elements */
+        .floating {
+            animation: floating 8s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                gap: 30px;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .logo-placeholder {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .intro-box h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+            
+            .form-progress {
+                max-width: 100%;
+            }
+            
+            .step-label {
+                font-size: 0.8rem;
+                text-align: center;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .event-date {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .intro-box, .video-box {
+                padding: 20px;
+            }
+            
+            .intro-box h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .form-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with logo -->
+        <header>
+            <div class="logo-container">
+                <div class="logo-placeholder floating"><img src="./img/Blue_Modern_Software_Company_Logo-removebg-preview.png" alt="" width="80px"></div>
+                <div class="logo-text">Workshop <span>Entrepreneur</span></div>
+            </div>
+            <div class="event-date">
+                <i class="fas fa-calendar-alt"></i> 30 Août 2025
+            </div>
+        </header>
+
+        <!-- Hero Section with intro and video -->
+        <section class="hero">
+            <div class="intro-box">
+                <h1>Transformez Votre <span>Business</span></h1>
+                <p>Participez à notre atelier exclusif conçu pour les entrepreneurs ambitieux prêts à révolutionner leur entreprise.</p>
+                
+                <div class="highlight">
+                    <p><i class="fas fa-star"></i> <strong>Objectif principal :</strong> Vous fournir les outils et stratégies pour augmenter votre chiffre d'affaires de 30% dans les 6 prochains mois.</p>
+                </div>
+                
+                <p>Pendant cet atelier intensif d'une journée, vous découvrirez :</p>
+                <ul style="padding-left: 20px; margin: 15px 0;">
+                    <li>Les stratégies de croissance éprouvées</li>
+                    <li>L'optimisation de vos processus métier</li>
+                    <li>L'élargissement de votre clientèle cible</li>
+                    <li>Les techniques de fidélisation clients</li>
+                </ul>
+                <p>Rejoignez des entrepreneurs partageant les mêmes ambitions et bénéficiez d'un accompagnement personnalisé.</p>
+            </div>
+            
+            <div class="video-box">
+                <div class="video-placeholder">
+                    <div class="video-overlay"></div>
+                </div>
+                <div class="video-label">
+                    <i class="fas fa-play-circle"></i> Découvrez ici comment vous pourriez faire 20.000$ de revenue dans les trois prochains mois
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section class="form-container">
+            <div class="form-header">
+                <h2>Inscription à l'Atelier</h2>
+                <p>Complétez le formulaire pour réserver votre place - Investissement: 15 dollars</p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="form-progress">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Entrepreneur</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Entreprise</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Paiement</div>
+                </div>
+            </div>
+
+            <!-- Form Sections -->
+            <form id="registrationForm">
+                <!-- Step 1: Entrepreneur Information -->
+                <div class="form-section active">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Nom Complet</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Votre nom complet">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Professionnel</label>
+                            <input type="email" id="email" name="email" required placeholder="email@votreentreprise.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Ex: +243 990 000 000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Années d'expérience</label>
+                            <select id="experience" name="experience" required>
+                                <option value="" style="color: #03072e;">Sélectionnez...</option>
+                                <option value="0-2" style="color: #03072e;">0-2 ans</option>
+                                <option value="3-5" style="color: #03072e;">3-5 ans</option>
+                                <option value="6-10" style="color: #03072e;">6-10 ans</option>
+                                <option value="10+" style="color: #03072e;">Plus de 10 ans</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <div></div> <!-- Empty div for spacing -->
+                        <button type="button" class="btn btn-next">Suivant <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Company Information -->
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="companyName">Nom de l'Entreprise</label>
+                            <input type="text" id="companyName" name="companyName" required placeholder="Nom de votre entreprise">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="industry">Secteur d'activité</label>
+                            <select id="industry" name="industry" required>
+                                <option value="" style="color: #03072e;">Sélectionnez votre secteur...</option>
+                                <option value="tech" style="color: #03072e;">Technologie</option>
+                                <option value="retail" style="color: #03072e;">Commerce de détail</option>
+                                <option value="services" style="color: #03072e;">Services professionnels</option>
+                                <option value="manufacturing" style="color: #03072e;">Production</option>
+                                <option value="health" style="color: #03072e;">Santé & Bien-être</option>
+                                <option value="food" style="color: #03072e;">Restauration & Alimentation</option>
+                                <option value="education" style="color: #03072e;">Éducation</option>
+                                <option value="other" style="color: #03072e;">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="revenue">Revenu annuel (en $)</label>
+                            <input type="number" id="revenue" name="revenue" required placeholder="Ex: 5000000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="employees">Nombre d'employés</label>
+                            <input type="number" id="employees" name="employees" required placeholder="Ex: 5">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="challenge">Plus grand défi actuel</label>
+                        <textarea id="challenge" name="challenge" required placeholder="Décrivez votre principal défi d'entreprise (max 200 mots)"></textarea>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Précédent</button>
+                        <button type="button" class="btn btn-next">Suivant <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Information -->
+                <div class="form-section">
+                    <h3 style="margin-bottom: 20px; text-align: center; color: var(--accent);">Méthode de Paiement</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method active" data-method="mobile">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>Mobile Money</h4>
+                            <p>Paiement sécurisé</p>
+                        </div>
+                        
+                        <div class="payment-method" data-method="card">
+                            <i class="fas fa-credit-card"></i>
+                            <h4>Carte Bancaire</h4>
+                            <p>Visa, Mastercard</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Money Details -->
+                    <div class="payment-details active" id="mobile-details">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="mobileOperator">Opérateur</label>
+                                <select id="mobileOperator" name="mobileOperator" required>
+                                    <option value="" style="color: #03072e;">Sélectionnez...</option>
+                                    <option value="mtn" style="color: #03072e;">Airtel Money</option>
+                                    <option value="orange" style="color: #03072e;">Orange Money</option>
+                                    <option value="moov" style="color: #03072e;">M-pesa</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mobileNumber">Numéro de téléphone</label>
+                                <input type="tel" id="mobileNumber" name="mobileNumber" required placeholder="Numéro associé à votre compte">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Details -->
+                    <div class="payment-details" id="card-details">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="cardNumber">Numéro de carte</label>
+                                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardName">Nom sur la carte</label>
+                                <input type="text" id="cardName" name="cardName" placeholder="Nom tel qu'affiché sur la carte">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="expiryDate">Date d'expiration</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/AA">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Précédent</button>
+                        <button type="submit" class="btn btn-submit"><i class="fas fa-lock"></i> Payer & S'inscrire</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Workshop Entrepreneur © 2025 | Tous droits réservés</p>
+            <p>Contact: contact@digistartexpress.com | Tél: +243 988 700 603 </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form navigation
+            const formSections = document.querySelectorAll('.form-section');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const nextButtons = document.querySelectorAll('.btn-next');
+            const prevButtons = document.querySelectorAll('.btn-prev');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const paymentDetails = document.querySelectorAll('.payment-details');
+            
+            let currentStep = 0;
+            
+            // Next button functionality
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (validateStep(currentStep)) {
+                        formSections[currentStep].classList.remove('active');
+                        progressSteps[currentStep].classList.remove('active');
+                        
+                        currentStep++;
+                        
+                        formSections[currentStep].classList.add('active');
+                        formSections[currentStep].classList.add('slide-in');
+                        progressSteps[currentStep].classList.add('active');
+                    }
+                });
+            });
+            
+            // Previous button functionality
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    formSections[currentStep].classList.remove('active');
+                    progressSteps[currentStep].classList.remove('active');
+                    
+                    currentStep--;
+                    
+                    formSections[currentStep].classList.add('active');
+                    formSections[currentStep].classList.add('slide-in');
+                    progressSteps[currentStep].classList.add('active');
+                });
+            });
+            
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove active class from all methods
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+                    // Add active class to clicked method
+                    this.classList.add('active');
+                    
+                    const methodType = this.getAttribute('data-method');
+                    
+                    // Hide all payment details
+                    paymentDetails.forEach(detail => detail.classList.remove('active'));
+                    
+                    // Show selected payment details
+                    document.getElementById(`${methodType}-details`).classList.add('active');
+                });
+            });
+            
+            // Form submission
+            const registrationForm = document.getElementById('registrationForm');
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateStep(currentStep)) {
+                    // Show loading state
+                    const submitButton = registrationForm.querySelector('.btn-submit');
+                    const originalText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+                    submitButton.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        // In a real scenario, this would call the payment API
+                        alert('Inscription réussie! Vous allez être redirigé vers le paiement.');
+                        
+                        // Reset button
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    }, 1500);
+                }
+            });
+            
+            // Validation function
+            function validateStep(step) {
+                let isValid = true;
+                const currentSection = formSections[step];
+                const requiredFields = currentSection.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ff6b6b';
+                        setTimeout(() => {
+                            field.style.borderColor = '';
+                        }, 2000);
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            // Add subtle animations to form elements
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100 + index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
