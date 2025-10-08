@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #000b54; /* navy-950 */
+  --color-primary-50: #f0f1ff;
+  --color-primary-100: #e1e4ff;
+  --color-primary-200: #c7cdff;
+  --color-primary-300: #a5b0ff;
+  --color-primary-400: #818cff;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #000b54;
+
+  /* Secondary Colors */
+  --color-secondary: #2536a6; /* blue-700 */
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #3b82f6;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #2536a6;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a;
+
+  /* Accent Colors */
+  --color-accent: #36d698; /* emerald-400 */
+  --color-accent-50: #ecfdf5;
+  --color-accent-100: #d1fae5;
+  --color-accent-200: #a7f3d0;
+  --color-accent-300: #6ee7b7;
+  --color-accent-400: #36d698;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --color-accent-800: #065f46;
+  --color-accent-900: #064e3b;
+
+  /* Success Colors */
+  --color-success: #58ffbe; /* emerald-300 */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #58ffbe;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+
+  /* Warning Colors */
+  --color-warning: #ff6b35; /* orange-500 */
+  --color-warning-50: #fff7ed;
+  --color-warning-100: #ffedd5;
+  --color-warning-200: #fed7aa;
+  --color-warning-300: #fdba74;
+  --color-warning-400: #fb923c;
+  --color-warning-500: #ff6b35;
+  --color-warning-600: #ea580c;
+  --color-warning-700: #c2410c;
+  --color-warning-800: #9a3412;
+  --color-warning-900: #7c2d12;
+
+  /* Error Colors */
+  --color-error: #dc2626; /* red-600 */
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
+  --color-error-300: #fca5a5;
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+  --color-error-800: #991b1b;
+  --color-error-900: #7f1d1d;
+
+  /* Background Colors */
+  --color-background: #ffffff; /* white */
+  --color-surface: #f7f7f7; /* gray-50 */
+
+  /* Text Colors */
+  --color-text-primary: #1a1a1a; /* gray-900 */
+  --color-text-secondary: #666666; /* gray-500 */
+}
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-250 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-250 ease-in-out;
+  }
+  
+  .card-premium {
+    @apply bg-white rounded-xl shadow-premium border border-gray-100 p-6 transition-all duration-300 ease-in-out hover:shadow-premium-hover;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent to-success bg-clip-text text-transparent;
+  }
+  
+  .shadow-premium {
+    box-shadow: 0 4px 20px rgba(0, 11, 84, 0.1);
+  }
+  
+  .shadow-premium-hover {
+    box-shadow: 0 8px 30px rgba(0, 11, 84, 0.15);
+  }
+  
+  .shadow-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .border-premium {
+    border: 1px solid rgba(88, 255, 190, 0.2);
+  }
+}
+
+@layer utilities {
+  .animation-smooth {
+    transition: all 250ms ease-in-out;
+  }
+  
+  .animation-accordion {
+    transition: all 300ms ease-in-out;
+  }
+}

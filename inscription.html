@@ -696,7 +696,7 @@
             </div>
 
             <!-- Form Sections -->
-            <form id="registrationForm">
+            <div id="registrationForm">
                 <!-- Step 1: Entrepreneur Information -->
                 <div class="form-section active">
                     <div class="form-grid">
@@ -783,70 +783,35 @@
                     <h3 style="margin-bottom: 20px; text-align: center; color: var(--accent);">Méthode de Paiement</h3>
                     
                     <div class="payment-methods">
-                        <div class="payment-method active" data-method="mobile">
-                            <i class="fas fa-mobile-alt"></i>
-                            <h4>Mobile Money</h4>
+                        <div class="payment-method active" data-method="maishapay">
+                            <i class="fas fa-wallet"></i>
+                            <h4>MaishaPay</h4>
                             <p>Paiement sécurisé</p>
                         </div>
+                    </div>
+                    
+                    <!-- MaishaPay Payment Form -->
+                    <div class="payment-details active" id="maishapay-details">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <p>Paiement sécurisé via MaishaPay</p>
+                        </div>
                         
-                        <div class="payment-method" data-method="card">
-                            <i class="fas fa-credit-card"></i>
-                            <h4>Carte Bancaire</h4>
-                            <p>Visa, Mastercard</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Mobile Money Details -->
-                    <div class="payment-details active" id="mobile-details">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="mobileOperator">Opérateur</label>
-                                <select id="mobileOperator" name="mobileOperator" required>
-                                    <option value="" style="color: #03072e;">Sélectionnez...</option>
-                                    <option value="mtn" style="color: #03072e;">Airtel Money</option>
-                                    <option value="orange" style="color: #03072e;">Orange Money</option>
-                                    <option value="moov" style="color: #03072e;">M-pesa</option>
-                                </select>
-                            </div>
+                        <form id="maishapay-form" action="https://marchand.maishapay.online/payment/vers1.0/merchant/checkout" method="POST">
+                            <input type="hidden" name="gatewayMode" value="0">
+                            <input type="hidden" name="publicApiKey" value="MP-SBPK-OK$lQAqDHId4aiHw101BVkzy$3l.dJZzrfF98zvwzmMhR4IWWGqdbuoVW1.znDD8m$ZJzCCr/Gf2/QZy.W02$Pw1AgqyXaawnXhvI$2hqkxp$RdRNvluXyK5">
+                            <input type="hidden" name="secretApiKey" value="MP-SBPK-02Gjy8PR$jendev$h0Z$UcKte$E2u1F20UfW$9V$ybYzr6izyoa2WmADYI6.aVyRItwV40F8ryaHPsJ1lhD8.whl2iNvRWqmXRTxruR10.Ua2KFC2Js2nrIj">
+                            <input type="hidden" name="montant" value="15">
+                            <input type="hidden" name="devise" value="USD">
+                            <input type="hidden" name="callbackUrl" value="http://127.0.0.1:8080/ticket.html">
                             
-                            <div class="form-group">
-                                <label for="mobileNumber">Numéro de téléphone</label>
-                                <input type="tel" id="mobileNumber" name="mobileNumber" required placeholder="Numéro associé à votre compte">
+                            <div class="form-footer">
+                                <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Précédent</button>
+                                <button type="submit" class="btn btn-submit"><i class="fas fa-lock"></i> Payer avec MaishaPay</button>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card Payment Details -->
-                    <div class="payment-details" id="card-details">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="cardNumber">Numéro de carte</label>
-                                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="cardName">Nom sur la carte</label>
-                                <input type="text" id="cardName" name="cardName" placeholder="Nom tel qu'affiché sur la carte">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="expiryDate">Date d'expiration</label>
-                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/AA">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" name="cvv" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-footer">
-                        <button type="button" class="btn btn-prev"><i class="fas fa-arrow-left"></i> Précédent</button>
-                        <button type="submit" class="btn btn-submit"><i class="fas fa-lock"></i> Payer & S'inscrire</button>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </section>
 
         <!-- Footer -->
@@ -916,29 +881,33 @@
                 });
             });
             
-            // Form submission
-            const registrationForm = document.getElementById('registrationForm');
-            registrationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateStep(currentStep)) {
-                    // Show loading state
-                    const submitButton = registrationForm.querySelector('.btn-submit');
-                    const originalText = submitButton.innerHTML;
-                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
-                    submitButton.disabled = true;
+            // Form submission handler
+            const submitButton = document.querySelector('.btn-submit');
+            if (submitButton) {
+                submitButton.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Simulate API call
-                    setTimeout(() => {
-                        // In a real scenario, this would call the payment API
-                        alert('Inscription réussie! Vous allez être redirigé vers le paiement.');
+                    if (validateStep(currentStep)) {
+                        // Store form data in localStorage
+                        const formData = {
+                            fullName: document.getElementById('fullName').value,
+                            email: document.getElementById('email').value,
+                            phone: document.getElementById('phone').value,
+                            experience: document.getElementById('experience').value,
+                            companyName: document.getElementById('companyName').value,
+                            industry: document.getElementById('industry').value,
+                            revenue: document.getElementById('revenue').value,
+                            employees: document.getElementById('employees').value,
+                            challenge: document.getElementById('challenge').value
+                        };
                         
-                        // Reset button
-                        submitButton.innerHTML = originalText;
-                        submitButton.disabled = false;
-                    }, 1500);
-                }
-            });
+                        localStorage.setItem('workshopRegistration', JSON.stringify(formData));
+                        
+                        // Submit MaishaPay form
+                        document.getElementById('maishapay-form').submit();
+                    }
+                });
+            }
             
             // Validation function
             function validateStep(step) {

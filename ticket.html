@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Workshop Digistart Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000b54, #03072e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .ticket-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            /* Amélioration pour la capture */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .ticket-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .ticket-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #36d698;
+            font-weight: 700;
+        }
+
+        .ticket-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ticket-content {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .ticket-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .info-item h3 {
+            font-size: 0.9rem;
+            color: #36d698;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .info-item p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .ticket-details {
+            background: rgba(54, 214, 152, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid #36d698;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .detail-value {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .event-location {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-map {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-capture {
+            background: #36d698;
+            color: #000b54;
+            font-weight: 600;
+        }
+
+        .btn-capture:hover {
+            background: #2ec389;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(54, 214, 152, 0.4);
+        }
+
+        .btn-share {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-share:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .confirmation {
+            background: rgba(54, 214, 152, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(54, 214, 152, 0.5);
+        }
+
+        .confirmation p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .confirmation i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #36d698;
+        }
+
+        /* Animation for ticket */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ticket-container {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* Améliorations pour la capture */
+        .ticket-printable {
+            background: #000b54;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .ticket-container {
+                padding: 25px;
+            }
+            
+            .ticket-header h1 {
+                font-size: 2rem;
+            }
+            
+            .ticket-content {
+                padding: 20px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ticket-container {
+                padding: 20px;
+            }
+            
+            .ticket-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .info-item p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ticket-container" id="ticket-to-capture">
+            <div class="ticket-header">
+                <h1>Ticket Workshop Digistart Express</h1>
+                <p>Votre inscription à notre atelier exclusif est confirmée. Présentez ce ticket à l'entrée.</p>
+            </div>
+            
+            <div class="ticket-content">
+                <div class="ticket-info" id="ticket-info">
+                    <!-- Info will be filled by JavaScript -->
+                </div>
+                
+                <div class="ticket-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Événement</div>
+                        <div class="detail-value">Workshop Entrepreneurial</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Date</div>
+                        <div class="detail-value">30 Août 2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Heure</div>
+                        <div class="detail-value">10h00 - 16h00</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Montant payé</div>
+                        <div class="detail-value">15 USD</div>
+                    </div>
+                </div>
+                
+                <div class="event-location">
+                    <h3><i class="fas fa-map-marker-alt"></i> Lieu de l'événement</h3>
+                    <p>Kadea Academy Lubumbashi<br>Avenue Maman Fatuma Golf, Les Battants</p>
+                    
+                    <div class="location-map">
+                        <i class="fas fa-map"></i> Carte de localisation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button id="capture-btn" class="btn btn-capture">
+                    <i class="fas fa-camera"></i> Prendre une capture d'écran
+                </button>
+                <button class="btn btn-share">
+                    <i class="fas fa-share-alt"></i> Partager
+                </button>
+            </div>
+            
+            <div id="confirmation" class="confirmation">
+                <i class="fas fa-check-circle"></i>
+                <p>Ticket capturé, gardez-le bien, on se voit ce 30 Août pour ce grand évènement, partagez l'information à ceux qui voudront s'inscrire.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get registration data from localStorage
+            const registrationData = JSON.parse(localStorage.getItem('workshopRegistration'));
+            
+            if (registrationData) {
+                // Fill ticket info
+                const ticketInfo = document.getElementById('ticket-info');
+                ticketInfo.innerHTML = `
+                    <div class="info-item">
+                        <h3>Nom Complet</h3>
+                        <p>${registrationData.fullName}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Email</h3>
+                        <p>${registrationData.email}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Téléphone</h3>
+                        <p>${registrationData.phone}</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Entreprise</h3>
+                        <p>${registrationData.companyName}</p>
+                    </div>
+                `;
+                
+                // Send data to Formspree
+                sendToFormspree(registrationData);
+            } else {
+                // If no data, show a message
+                const ticketInfo = document.getElementById('ticket-info');
+                ticketInfo.innerHTML = `<p>Impossible de charger les données d'inscription. Veuillez vérifier votre paiement.</p>`;
+            }
+            
+            // Capture button functionality
+            document.getElementById('capture-btn').addEventListener('click', function() {
+                captureTicket();
+            });
+            
+            // Send data to Formspree function
+            function sendToFormspree(data) {
+                const formData = new FormData();
+                formData.append('email', data.email);
+                formData.append('fullName', data.fullName);
+                formData.append('phone', data.phone);
+                formData.append('experience', data.experience);
+                formData.append('companyName', data.companyName);
+                formData.append('industry', data.industry);
+                formData.append('revenue', data.revenue);
+                formData.append('employees', data.employees);
+                formData.append('challenge', data.challenge);
+                formData.append('event', 'Workshop Entrepreneurial');
+                formData.append('amount', '15 USD');
+                
+                fetch('https://formspree.io/f/myzpjoor', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Données envoyées avec succès à Formspree');
+                    } else {
+                        console.error('Erreur lors de l\'envoi à Formspree');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur réseau:', error);
+                });
+            }
+            
+            // Capture ticket function with improved quality
+            function captureTicket() {
+                const ticketElement = document.getElementById('ticket-to-capture');
+                
+                // Temporarily remove effects that cause issues with capture
+                const originalBackdrop = ticketElement.style.backdropFilter;
+                const originalBoxShadow = ticketElement.style.boxShadow;
+                const originalOverflow = ticketElement.style.overflow;
+                
+                ticketElement.style.backdropFilter = 'none';
+                ticketElement.style.boxShadow = 'none';
+                ticketElement.style.overflow = 'visible';
+                
+                // Add class for better print rendering
+                ticketElement.classList.add('ticket-printable');
+                
+                // Capture with high quality settings
+                html2canvas(ticketElement, {
+                    scale: 3, // Tripler la résolution
+                    backgroundColor: '#000b54', // Fond solide pour éviter la transparence
+                    useCORS: true, // Autoriser les ressources externes
+                    logging: false, // Désactiver les logs
+                    allowTaint: true, // Autoriser les images externes
+                    onclone: function(clonedDoc) {
+                        // Améliorer le rendu sur le clone
+                        const cloneTicket = clonedDoc.getElementById('ticket-to-capture');
+                        cloneTicket.style.background = '#000b54';
+                        cloneTicket.style.border = 'none';
+                    }
+                }).then(canvas => {
+                    // Convert canvas to image
+                    const image = canvas.toDataURL('image/png');
+                    
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.href = image;
+                    link.download = 'ticket-workshop-digistart.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Show confirmation message
+                    document.getElementById('confirmation').style.display = 'block';
+                    document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Restore original styles
+                    ticketElement.style.backdropFilter = originalBackdrop;
+                    ticketElement.style.boxShadow = originalBoxShadow;
+                    ticketElement.style.overflow = originalOverflow;
+                    ticketElement.classList.remove('ticket-printable');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
